@@ -20,7 +20,9 @@ def handle_message(message):
     print(f'message received: {message.text}')
     # reply
     print(f'sending reply...')
-    bot.send_message(chat_id=message.chat_id, text='Hi there')
+    bot.send_message(chat_id=message.chat.id, text='Hi there')
+    bot.send_message(chat_id=message.chat.id, text=f'Your text was: {message.text}')
+    bot.send_message(chat_id=message.chat.id, text=f'Мы с Жаки полуночные девелоперы')
     print(f'reply sent')
 
 
