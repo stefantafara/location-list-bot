@@ -1,10 +1,13 @@
-import telebot
-import config
+import telebot, os
+
+# there is no need in config file. use Heroku config
+# import config
 
 # reading token from config...
 print(f'reading token from config...')
-token = config.token
+token = os.environ['TOKEN']
 print(f'token: {token}')
+
 # starting bot...
 print('starting bot...')
 bot = telebot.TeleBot(token)
@@ -20,5 +23,6 @@ def handle_message(message):
     bot.send_message(chat_id=message.chat_id, text='Hi there')
     print(f'reply sent')
 
+
 if __name__ == '__main__':
-  bot.polling()
+    bot.polling()
