@@ -20,5 +20,5 @@ def handle_message(message):
     bot.send_message(chat_id=message.chat_id, text='Hi there')
     print(f'reply sent')
 
-
-bot.polling(none_stop=True, timeout=123)
+if __name__ == '__main__':
+  bot.polling()
