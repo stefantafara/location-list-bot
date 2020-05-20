@@ -43,7 +43,7 @@ PLease use these commands:\
 """)
 
 
-@bot.message_handler(commands=['/add'])
+@bot.message_handler(commands=['add'])
 def add_location(message):
     print('requesting location...')
     bot.send_message(chat_id=message.chat.id, text='Please input location')
@@ -53,7 +53,7 @@ def add_location(message):
     bot.send_message(chat_id=message.chat.id, text='Location was successfully added')
 
 
-@bot.message_handler(commands=['/list'])
+@bot.message_handler(commands=['list'])
 def list_locations(message):
     bot.send_message(chat_id=message.chat.id, text='Please input location')
     for location in r.lrange(message.chat.id, 0, 9):
@@ -61,7 +61,7 @@ def list_locations(message):
         bot.send_message(chat_id=message.chat.id, text=location)
 
 
-@bot.message_handler(commands=['/reset'])
+@bot.message_handler(commands=['reset'])
 def send_welcome(message):
     print(f'deleting all locations with ID: {message.chat.id}')
     r.delete(message.chat.id)
