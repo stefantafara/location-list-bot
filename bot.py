@@ -20,7 +20,8 @@ telebot.logger.setLevel(logging.DEBUG)
 # Redis
 r = redis.from_url(os.environ.get("REDIS_URL"))
 
-@bot.message_handler()
+
+@bot.message_handler(commands=['ping'])
 def handle_message(message):
     # receiving message
     print(f'message received: {message.text}')
