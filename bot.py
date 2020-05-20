@@ -64,7 +64,7 @@ def list_locations(message):
 @bot.message_handler(commands=['/reset'])
 def send_welcome(message):
     print(f'deleting all locations with ID: {message.chat.id}')
-    r.del(message.chat.id)
+    r.delete(message.chat.id)
     bot.send_message(chat_id=message.chat.id, text='All locations were deleted')
 
 
