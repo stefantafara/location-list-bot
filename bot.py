@@ -60,10 +60,13 @@ def add_location(message):
 
 @bot.message_handler(commands=['list'])
 def list_locations(message):
-    bot.send_message(chat_id=message.chat.id, text='Please input location')
-    for location in r.lrange(message.chat.id, 0, 9):
-        print(f'location: {location}')
-        bot.send_message(chat_id=message.chat.id, text=location)
+    locations = r.lrange(message.chat.id, 0, 9)
+    if len(locations) == 0:
+        bot.send_message(chat_id=message.chat.id, text='Sorry your locations list is empty')
+    else:
+        for location in locations:
+            print(f'location: {location}')
+            bot.send_message(chat_id=message.chat.id, text=location)
 
 
 @bot.message_handler(commands=['reset'])
