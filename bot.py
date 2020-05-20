@@ -36,22 +36,26 @@ def handle_message(message):
 def send_welcome(message):
     bot.reply_to(message, """\
 Hi there, I am Location List Bot.
-PLease use these commands:\
-/help - for help\
-/add - to add new location\
-/list - to watch list of 10 last locations\
-/reset - to reset all locations\
+PLease use these commands:
+/help - for help
+/add - to add new location
+/list - to watch list of 10 last locations
+/reset - to reset all locations
 """)
 
 
 @bot.message_handler(commands=['add'])
-def add_location(message):
+def command_add(message):
     print('requesting location...')
     bot.send_message(chat_id=message.chat.id, text='Please input location')
+    bot.register_next_step_handler(message, add_location)
+
+
+def add_location(message):
     print('pushing location to Redis...')
     r.lpush(message.chat.id, message.text)
     print('pushed successfully')
-    bot.send_message(chat_id=message.chat.id, text='Location was successfully added')
+    bot.send_message(chat_id=message.chat.id, text='Thank you! Location was successfully added.')
 
 
 @bot.message_handler(commands=['list'])
