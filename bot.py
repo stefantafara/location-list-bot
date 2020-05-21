@@ -25,7 +25,7 @@ button_names = ['help', 'add', 'list', 'reset']
 
 
 def create_keyboard():
-    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    keyboard = types.InlineKeyboardMarkup(row_width=4)
     buttons = [types.InlineKeyboardButton(text=button, callback_data=button) for button in button_names]
     keyboard.add(*buttons)
     return keyboard
@@ -79,18 +79,20 @@ def add_location(message):
     print('pushing location to Redis...')
     r.lpush(message.chat.id, message.text)
     print('pushed successfully')
-    bot.send_message(chat_id=message.chat.id, text='Thank you! Location was successfully added.', reply_markup=create_keyboard())
+    bot.send_message(chat_id=message.chat.id, text='Thank you! Location was successfully added.',
+                     reply_markup=create_keyboard())
 
 
 @bot.message_handler(commands=['list'])
 def list_locations(message):
     locations = r.lrange(message.chat.id, 0, 9)
     if len(locations) == 0:
-        bot.send_message(chat_id=message.chat.id, text='Sorry your locations list is empty', reply_markup=create_keyboard())
+        bot.send_message(chat_id=message.chat.id, text='Sorry your locations list is empty')
     else:
         for location in locations:
             print(f'location: {location}')
-            bot.send_message(chat_id=message.chat.id, text=location, reply_markup=create_keyboard())
+            bot.send_message(chat_id=message.chat.id, text=location)
+    bot.send_message(chat_id=message.chat.id, reply_markup=create_keyboard())
 
 
 @bot.message_handler(commands=['reset'])
