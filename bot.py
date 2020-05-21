@@ -92,7 +92,7 @@ def list_locations(message):
         for location in locations:
             print(f'location: {location}')
             bot.send_message(chat_id=message.chat.id, text=location)
-    bot.send_message(chat_id=message.chat.id, text=None, reply_markup=create_keyboard())
+    bot.send_message(chat_id=message.chat.id, text="Please press the button", reply_markup=create_keyboard())
 
 
 @bot.message_handler(commands=['reset'])
