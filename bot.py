@@ -34,14 +34,15 @@ def create_keyboard():
 @bot.callback_query_handler(func=lambda x: True)
 def handle_button_callback(callbackquery):
     message = callbackquery.message
-    data = callbackquery.data
-    if message.text == 'add':
+    text = callbackquery.data
+    print(f'text: {text}')
+    if text == 'add':
         command_add(message)
-    elif message.text == 'list':
+    elif text == 'list':
         list_locations(message)
-    elif message.text == 'reset':
+    elif text == 'reset':
         reset(message)
-    elif message.text == 'help':
+    elif text == 'help':
         help(message)
 
 
