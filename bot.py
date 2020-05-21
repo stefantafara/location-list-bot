@@ -1,4 +1,5 @@
 import telebot, os, redis, logging
+from telebot import types
 
 # there is no need in config file. use Heroku config
 # import config
@@ -20,6 +21,29 @@ telebot.logger.setLevel(logging.DEBUG)
 # Redis
 r = redis.from_url(os.environ.get("REDIS_URL"))
 
+button_names = ['help', 'add', 'list', 'reset']
+
+
+def create_keyboard():
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    buttons = [types.InlineKeyboardButton(text=button, callback_data=button) for button in button_names]
+    keyboard.add(*buttons)
+    return keyboard
+
+
+@bot.callback_query_handler(func=lambda x: True)
+def handle_button_callback(callbackquery):
+    message = callbackquery.message
+    data = callbackquery.data
+    if message.text == 'add':
+        command_add(message)
+    elif message.text == 'list':
+        list_locations(message)
+    elif message.text == 'reset':
+        reset(message)
+    elif message.text == 'help':
+        help(message)
+
 
 @bot.message_handler(commands=['ping'])
 def handle_message(message):
@@ -33,7 +57,7 @@ def handle_message(message):
 
 
 @bot.message_handler(commands=['help', 'start'])
-def send_welcome(message):
+def help(message):
     bot.reply_to(message, """\
 Hi there, I am Location List Bot.
 PLease use these commands:
@@ -70,7 +94,7 @@ def list_locations(message):
 
 
 @bot.message_handler(commands=['reset'])
-def send_welcome(message):
+def reset(message):
     print(f'deleting all locations with ID: {message.chat.id}')
     r.delete(message.chat.id)
     bot.send_message(chat_id=message.chat.id, text='All locations were deleted')
