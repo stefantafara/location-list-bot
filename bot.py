@@ -72,7 +72,7 @@ PLease use these commands:
 @bot.message_handler(commands=['add'])
 def command_add(message):
     print('requesting location...')
-    bot.send_message(chat_id=message.chat.id, text='Please input location')
+    bot.send_message(chat_id=message.chat.id, text='Please input address')
     bot.register_next_step_handler(message, add_location)
 
 
