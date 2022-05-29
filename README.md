@@ -21,7 +21,7 @@ Location list bot uses a number of parts to work properly:
 ## Development
 
 Want to contribute? Great!
-You can add some features or adapt the bot to your goals, for example, for storing any kind of lists, for example, such as TODO
+You can add some features or adapt the bot to your goals, for example, for storing any kind of lists, for example, such as TODO or shopping list
 
 
 
